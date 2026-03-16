@@ -1,0 +1,697 @@
+PROGRAMOWANIE OBIEKTOWE - LABORATORIUM NR 1
+AUTOR: Krzysztof Zdzieszynski
+============================================================
+
+// >>> ROZDZIAL: Zadanie1 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie1.cpp
+----------------------------------------
+/*
+Zadanie 1.Napisz program, który dodaje cyfry podane z klawiatury
+przez użytkownika, cyfra 0 kończy program i wyświetla
+sumę wczytanych cyfr. Chodzi o to że gdy użytkownik poda
+cyfry: 1,2,3,0 program wyświetli 6.
+Gdy użytkownik poda cyfry: 2,2,0 program wyświetli 4.
+*/
+
+#include <iostream>
+int main() {
+    int sum = 0;
+    int digit;
+
+    std::cout << "Podaj cyfry (0 kończy program): ";
+    while (true) {
+        std::cin >> digit;
+        if (digit == 0) {
+            break; // Kończy program, gdy użytkownik poda 0
+        }
+        sum += digit; // Dodaje wczytaną cyfrę do sumy
+    }
+
+    std::cout << "Suma wczytanych cyfr: " << sum << std::endl;
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie2 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie2.cpp
+----------------------------------------
+/*
+Zadanie 2.Napisz program, który tworzy trzy zmienne
+dynamiczne. Pierwsza zmienna to podstawa,
+druga i trzecia to boki. Następnie program wypisuje czy to
+jest trójkąt równoboczny oraz czy jest to trójkąt
+równoramienny.
+*/
+
+#include <iostream>
+#include <Windows.h> // Biblioteka do ustawiania kodowania konsoli
+
+int main() {
+    // Ustawienie UTF-8 w konsoli    
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
+    double* base = new double; // Dynamiczna zmienna dla podstawy
+    double* side1 = new double; // Dynamiczna zmienna dla pierwszego boku
+    double* side2 = new double; // Dynamiczna zmienna dla drugiego boku
+
+    std::cout << "Podaj długość podstawy: ";
+    std::cin >> *base;
+    std::cout << "Podaj długość pierwszego boku: ";
+    std::cin >> *side1;
+    std::cout << "Podaj długość drugiego boku: ";
+    std::cin >> *side2;
+
+    // Sprawdzenie, czy jest to trójkąt równoboczny
+    if (*base == *side1 && *side1 == *side2) {
+        std::cout << "To jest trójkąt równoboczny." << std::endl;
+    } else {
+        std::cout << "To nie jest trójkąt równoboczny." << std::endl;
+    }
+
+    // Sprawdzenie, czy jest to trójkąt równoramienny
+    if (*base == *side1 || *base == *side2 || *side1 == *side2) {
+        std::cout << "To jest trójkąt równoramienny." << std::endl;
+    } else {
+        std::cout << "To nie jest trójkąt równoramienny." << std::endl;
+    }
+
+    // Zwolnienie pamięci dynamicznej
+    delete base;
+    delete side1;
+    delete side2;
+
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie3 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie3.cpp
+----------------------------------------
+/* 
+Zadanie 3.Napisz program który za pomocą dwóch
+pętli, wyświetli cyfry w terminalu:
+1,2,3,4,5,6,7,8,9,10
+2,4,6,8,10,12,14,16,18,20
+3,6,9,12,15,18,21,24,27,30
+4,8,12,16,29,24,28,32,36,40
+5,10,15,20,25,30,35,40,45,50
+6,12,18,24,30,36,42,48,54,60
+7,14,21,28,35,42,49,56,63,70
+8,16,25,32,40,48,56,64,72,80
+9,18,27,36,45,54,63,72,81,90
+10,20,30,40,50,60,70,80,90,100
+*/
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        for (int j = 1; j <= 10; j++) {
+            cout << i * j << ",";
+        }
+        cout << endl;
+    }
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie4 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie4.cpp
+----------------------------------------
+/* Zadanie 4.Napisz program który prosi użytkownika o podanie cyfry.
+ Następnie wyświetla tyle cyfr w wierszu oraz tyle
+  samo kolumnie. Macierz musi być wypełniona szachownicą
+   (przykład dla liczby 4)
+   0,1,0,1,
+   1,0,1,0,
+   0,1,0,1,
+   1,0,1,0,
+   */
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cout << "Podaj liczbę: ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if ((i + j) % 2 == 0) {
+                cout << "0";
+            } else {
+                cout << "1";
+            }
+            cout << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie5 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie5.cpp
+----------------------------------------
+/*Zadanie 5.Napisz program, który zadeklaruje tablice 20 
+elementową, a następnie prosi użytkownika o wpisanie cyfr z
+ klawiatury i zapisanie do tablicy. Następnie program wypisuje:
+  największą cyfrę, najmniejszą cyfrę, sumę cyfr liczb parzystych.*/
+
+#include <iostream>
+using namespace std;
+int main() {
+    const int SIZE = 20;
+    int numbers[SIZE];
+
+    cout << "Podaj " << SIZE << " cyfr:" << endl;
+    for (int i = 0; i < SIZE; i++) {
+        cin >> numbers[i];
+    }
+
+    int maxNum = numbers[0];
+    int minNum = numbers[0];
+    int sumEven = 0;
+
+    for (int i = 0; i < SIZE; i++) {
+        if (numbers[i] > maxNum) {
+            maxNum = numbers[i];
+        }
+        if (numbers[i] < minNum) {
+            minNum = numbers[i];
+        }
+        if (numbers[i] % 2 == 0) {
+            sumEven += numbers[i];
+        }
+    }
+
+    cout << "Największa cyfra: " << maxNum << endl;
+    cout << "Najmniejsza cyfra: " << minNum << endl;
+    cout << "Suma cyfr parzystych: " << sumEven << endl;
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie6 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie6.cpp
+----------------------------------------
+/* 
+Zadanie 6.Napisz program, który zadeklaruje dwie tablice tabA[4][4] i tabB[4][4]. Do tabA wygeneruj następnie cyfry:2 2 2 24 4 4 46 6 6 68 8 8 8Za pomocą pętli, przepisz do tabB cyfry z tablicy tabA tak aby tabB była uzupełniona w ten sposób:2 4 6 82 4 6 82 4 6 82 4 6 8Wypisz na ekran obie tablice.
+*/
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int SIZE = 4;
+    int tabA[SIZE][SIZE] = {
+        {2, 2, 2, 2},
+        {4, 4, 4, 4},
+        {6, 6, 6, 6},
+        {8, 8, 8, 8}
+    };
+    
+    int tabB[SIZE][SIZE];
+
+    // Przepisanie wartości z tabA do tabB
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            tabB[i][j] = tabA[i][j] + (i + j) * 2; // Dodajemy (i+j)*2 do każdej wartości
+        }
+    }
+
+    // Wypisanie tablicy tabA
+    cout << "Tablica A:" << endl;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            cout << tabA[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    // Wypisanie tablicy tabB
+    cout << "Tablica B:" << endl;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            cout << tabB[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie7 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie7.cpp
+----------------------------------------
+/*
+Zadanie 7.Napisz program, który zadeklaruje trzy tablice tabA[4][4], tabB[4][4] i tabC[4][4]. Do tabA wpisze następnie cyfry:1 0 0 01 1 0 01 1 1 01 1 1 1Do tablicy tabB wpisz następujące cyfry:0 1 0 11 0 1 00 1 0 11 0 1 0Do tablicy tabC zapisz sumę tablicy tabA i tabB. Wypisz na ekran wszystkie trzy tablice.
+*/
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int SIZE = 4;
+    int tabA[SIZE][SIZE] = {
+        {1, 0, 0, 0},
+        {1, 1, 0, 0},
+        {1, 1, 1, 0},
+        {1, 1, 1, 1}
+    };
+    
+    int tabB[SIZE][SIZE] = {
+        {0, 1, 0, 1},
+        {1, 0, 1, 0},
+        {0, 1, 0, 1},
+        {1, 0, 1, 0}
+    };
+    
+    int tabC[SIZE][SIZE];
+
+    // Obliczenie sumy tablic tabA i tabB
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            tabC[i][j] = tabA[i][j] + tabB[i][j];
+        }
+    }
+
+    // Wypisanie tablicy tabA
+    cout << "Tablica A:" << endl;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            cout << tabA[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    // Wypisanie tablicy tabB
+    cout << "Tablica B:" << endl;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            cout << tabB[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    // Wypisanie tablicy tabC
+    cout << "Tablica C:" << endl;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            cout << tabC[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie8 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie8.cpp
+----------------------------------------
+/*
+Zadanie 8.Napisz program, który wypisze ilość wystąpień cyfr od 0 do 100 na ekran w ten sposób:‘0’ -> 2‘1’ -> 0zera są dwa, jedynka występuje zero razy, itp.plik z danymi który trzeba wczytać należy samemu utworzyć i wpisać 40 cyfr z zakresu od 0 do 100. Plik ma się nazywać „dane.txt”
+*/
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    const int SIZE = 4;
+    int tabA[SIZE][SIZE];
+    int tabB[SIZE][SIZE];
+    int tabC[SIZE][SIZE];
+
+    // Wczytanie danych z pliku zad1.txt do tablicy tabA
+    ifstream fileA("zad1.txt");
+    if (fileA.is_open()) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                fileA >> tabA[i][j];
+            }
+        }
+        fileA.close();
+    } else {
+        cout << "Nie można otworzyć pliku zad1.txt" << endl;
+        return 1;
+    }
+
+    // Wczytanie danych z pliku zad2.txt do tablicy tabB
+    ifstream fileB("zad2.txt");
+    if (fileB.is_open()) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                fileB >> tabB[i][j];
+            }
+        }
+        fileB.close();
+    } else {
+        cout << "Nie można otworzyć pliku zad2.txt" << endl;
+        return 1;
+    }
+
+    // Obliczenie sumy tablic tabA i tabB do tablicy tabC
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            tabC[i][j] = tabA[i][j] + tabB[i][j];
+        }
+    }
+
+    // Zapisanie wyniku do pliku wynik.txt
+    ofstream resultFile("wynik.txt");
+    if (resultFile.is_open()) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                resultFile << tabC[i][j] << " ";
+            }
+            resultFile << endl;
+        }
+        resultFile.close();
+    } else {
+        cout << "Nie można otworzyć pliku wynik.txt" << endl;
+        return 1;
+    }
+
+    cout << "Suma macierzy została zapisana w pliku wynik.txt" << endl;
+    return 0;
+}
+
+// ZALACZNIK (DANE/WYNIK/OPIS): dane.txt
+........................................
+
+
+// ZALACZNIK (DANE/WYNIK/OPIS): wynik.txt
+........................................
+1 0 0 0 
+4 4 3 3 
+1 1 1 0 
+4 4 4 4
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie9 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie9.cpp
+----------------------------------------
+/* 
+Zadanie 9
+Utwórz plik o nazwie zad1.txt i wpisz do niego ręcznie przez notatnik takie cyfry:1 0 0 01 1 0 01 1 1 01 1 1 1Następnie utwórz plik o nazwie zad2.txt i wpisz do niego takie cyfry:0 0 0 03 3 3 30 0 0 03 3 3 3Następnie zapisz sumę tych macierzy do pliku wynik.txt
+*/
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    const int SIZE = 4;
+    int tabA[SIZE][SIZE];
+    int tabB[SIZE][SIZE];
+    int tabC[SIZE][SIZE];
+
+    // Wczytanie danych z pliku zad1.txt do tablicy tabA
+    ifstream fileA("zad1.txt");
+    if (fileA.is_open()) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                fileA >> tabA[i][j];
+            }
+        }
+        fileA.close();
+    } else {
+        cout << "Nie można otworzyć pliku zad1.txt" << endl;
+        return 1;
+    }
+
+    // Wczytanie danych z pliku zad2.txt do tablicy tabB
+    ifstream fileB("zad2.txt");
+    if (fileB.is_open()) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                fileB >> tabB[i][j];
+            }
+        }
+        fileB.close();
+    } else {
+        cout << "Nie można otworzyć pliku zad2.txt" << endl;
+        return 1;
+    }
+
+    // Obliczenie sumy tablic tabA i tabB do tablicy tabC
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            tabC[i][j] = tabA[i][j] + tabB[i][j];
+        }
+    }
+
+    // Zapisanie wyniku do pliku wynik.txt
+    ofstream resultFile("wynik.txt");
+    if (resultFile.is_open()) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                resultFile << tabC[i][j] << " ";
+            }
+            resultFile << endl;
+        }
+        resultFile.close();
+    } else {
+        cout << "Nie można otworzyć pliku wynik.txt" << endl;
+        return 1;
+    }
+
+    return 0;
+}
+
+// ZALACZNIK (DANE/WYNIK/OPIS): wynik.txt
+........................................
+1 0 0 0 
+4 4 3 3 
+1 1 1 0 
+4 4 4 4
+
+// ZALACZNIK (DANE/WYNIK/OPIS): zad1.txt
+........................................
+1 0 0 0
+1 1 0 0
+1 1 1 0
+1 1 1 1
+
+// ZALACZNIK (DANE/WYNIK/OPIS): zad2.txt
+........................................
+0 0 0 0
+3 3 3 3
+0 0 0 0
+3 3 3 3
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie10 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie10.cpp
+----------------------------------------
+/*
+Zadanie 10.Napisz program który pobierze dwie cyfry od użytkownika a następnie przekaże je do funkcji. Funkcja ma za zadanie pomnożyć je i wynik przekazać do funkcji main. Deklaracja funkcji wygląda tak: int mnozenie(int &x, int &y)
+*/
+
+#include <iostream>
+using namespace std;
+
+int mnozenie(int &x, int &y) {
+    return x * y;
+}
+
+int main() {
+    int a, b;
+    cout << "Podaj dwie cyfry: ";
+    cin >> a >> b;
+    cout << "Iloczyn: " << mnozenie(a, b) << endl;
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie11 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie11.cpp
+----------------------------------------
+/*
+Zadanie 11.Napisz funkcję która zwraca największą liczbę w tabeli. Definicja funkcji to: int max_tab(int t[], int n), funkcja pobiera tablicę oraz ilość elementów, a zwraca największy element. Tablica musi być zadeklarowana w main oraz ma takie wartości wpisane przy tworzeniu: 2,4,10,1,1,2,4,5,1,3
+*/
+
+#include <iostream>
+using namespace std;
+
+int max_tab(int t[], int n) {
+    int max = t[0]; // Zakładamy, że pierwszy element jest największy
+    for (int i = 1; i < n; i++) {
+        if (t[i] > max) {
+            max = t[i]; // Aktualizujemy max, jeśli znajdziemy większy element
+        }
+    }
+    return max; // Zwracamy największy element
+}
+
+int main() {
+    int tab[] = {2, 4, 10, 1, 1, 2, 4, 5, 1, 3};
+    int n = sizeof(tab) / sizeof(tab[0]);
+    cout << "Największa liczba w tabeli: " << max_tab(tab, n) << endl;
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie12 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie12.cpp
+----------------------------------------
+/*
+Zadanie 12.Napisz funkcję która liczy silnię. Wszystkie zmienne w programie main są zmiennymi dynamicznymi (new). Pobierz od użytkownika jedną cyfrę a następnie przekaż ją do funkcji za pomocą wskaźnika. Funkcja zwraca wynik do programu za pomocą wskaźnika (w funkcji utwórz zmienną dynamiczną i zwróć ją do funkcji main). Deklaracja funkcji wygląda tak:int *silnia(int *a).
+*/
+
+#include <iostream>
+using namespace std;
+
+int *silnia(int *a) {
+    int *result = new int(1); // Dynamiczna zmienna do przechowywania wyniku
+    for (int i = 1; i <= *a; i++) {
+        *result *= i; // Mnożymy wynik przez kolejne liczby od 1 do a
+    }
+    return result; // Zwracamy wskaźnik do wyniku
+}
+
+int main() {
+    int *number = new int; // Dynamiczna zmienna do przechowywania liczby
+    cout << "Podaj cyfrę: ";
+    cin >> *number; // Wczytujemy wartość do dynamicznej zmiennej
+
+    int *factorial = silnia(number); // Wywołujemy funkcję silnia i otrzymujemy wskaźnik do wyniku
+    cout << "Silnia z " << *number << " to: " << *factorial << endl;
+
+    // Zwolnienie pamięci dynamicznej
+    delete number;
+    delete factorial;
+
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie13 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie13.cpp
+----------------------------------------
+/*
+Zadanie 13.Program ma taką strukturę:typedef struct {int re;//część rzeczywistaint im;//część urojona}zespolona;
+31.Napisz program, który stworzy dwie zmienne według struktury „zespolona”. Następnie program musi poprosić o wpisanie do liczby pierwszej (cyfry do części rzeczywistej oraz cyfry do części urojonej). To samo trzeba zrobić z drugą liczbą. Następnie dodaj obieliczby zespolone. Dodawanie polega na dodaniu części rzeczywistej do części rzeczywistej, a części urojonej do urojonej. Po czym wypisz wynik według przykładu:  3+4i  gdzie w tym przykładzie 3 to część rzeczywista, a 4 to część urojona.
+*/
+
+#include <iostream>
+using namespace std;
+
+typedef struct {
+    int re; // część rzeczywista
+    int im; // część urojona
+} zespolona;
+
+int main() {
+    zespolona z1, z2, wynik;
+
+    cout << "Podaj część rzeczywistą pierwszej liczby zespolonej: ";
+    cin >> z1.re;
+    cout << "Podaj część urojoną pierwszej liczby zespolonej: ";
+    cin >> z1.im;
+
+    cout << "Podaj część rzeczywistą drugiej liczby zespolonej: ";
+    cin >> z2.re;
+    cout << "Podaj część urojoną drugiej liczby zespolonej: ";
+    cin >> z2.im;
+
+    // Dodawanie liczb zespolonych
+    wynik.re = z1.re + z2.re; // Dodajemy części rzeczywiste
+    wynik.im = z1.im + z2.im; // Dodajemy części urojone
+
+    // Wyświetlenie wyniku
+    cout << "Wynik dodawania: " << wynik.re << "+" << wynik.im << "i" << endl;
+
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
+// >>> ROZDZIAL: Zadanie14 <<<
+************************************************************
+
+// PLIK ZRODLOWY: zadanie14.cpp
+----------------------------------------
+/*
+Zadanie 14.Program ma taką strukturę:typedef struct {int wysokosc;int szerokosc;}prostokat;Napisz program, który stworzy zmienną dynamiczną wedługstruktury „prostokat”, następnie wczyta zklawiatury dane. Następnie rysuje prostokąt z gwiazdek o podanej szerokości i wysokości oraz liczy obwód oraz pole.   
+*/
+#include <iostream>
+using namespace std;
+
+typedef struct {
+    int wysokosc;
+    int szerokosc;
+} prostokat;
+
+int main() {
+    prostokat *p = new prostokat;
+    cout << "Podaj wysokość prostokąta: ";
+    cin >> p->wysokosc;
+    cout << "Podaj szerokość prostokąta: ";
+    cin >> p->szerokosc;
+
+    // Rysowanie prostokąta z gwiazdek
+    for (int i = 0; i < p->wysokosc; i++) {
+        for (int j = 0; j < p->szerokosc; j++) {
+            cout << "*";
+        }
+        cout << endl;
+    }
+
+    // Liczenie obwodu i pola
+    int obwod = 2 * (p->wysokosc + p->szerokosc);
+    int pole = p->wysokosc * p->szerokosc;
+
+    cout << "Obwód prostokąta: " << obwod << endl;
+    cout << "Pole prostokąta: " << pole << endl;
+
+    delete p;
+    return 0;
+}
+
+////////////////////////////////////////////////////////////
+
